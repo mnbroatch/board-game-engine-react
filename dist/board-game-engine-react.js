@@ -199,13 +199,12 @@
   }
 
   function Game({
-    gameConnection
+    gameConnection,
+    loading
   }) {
     console.log('555gameConnection', gameConnection);
-    const {
-      G
-    } = gameConnection.state;
-    return /*#__PURE__*/React__default["default"].createElement(GameProvider, {
+    const G = gameConnection?.state;
+    return G ? /*#__PURE__*/React__default["default"].createElement(GameProvider, {
       gameConnection: gameConnection,
       isSpectator: true
     }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -240,7 +239,7 @@
       entity: entity
     }))))), /*#__PURE__*/React__default["default"].createElement(GameStatus, {
       gameConnection: gameConnection
-    })));
+    }))) : loading;
   }
 
   exports.Game = Game;
