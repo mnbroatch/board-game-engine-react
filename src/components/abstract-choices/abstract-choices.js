@@ -1,5 +1,5 @@
 import React from 'react'
-import { useGame } from "../contexts/game-context.js";
+import { useGame } from "../../contexts/game-context.js";
 
 export default function AbstractChoices () {
   const { clickTarget, allClickable, undoStep, currentMoveTargets } = useGame()

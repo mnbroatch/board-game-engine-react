@@ -1,6 +1,6 @@
 {
   "name": "board-game-engine-react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React library for using board-game-engine",
   "main": "dist/board-game-engine-react.js",
   "scripts": {

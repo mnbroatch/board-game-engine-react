@@ -1,3 +1,3 @@
 import './styles.scss'
 
-export { default } from './BoardGameEngineReact.js'
+export { default as Game } from './components/game/game.js'
