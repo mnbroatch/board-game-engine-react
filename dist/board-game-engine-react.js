@@ -200,13 +200,13 @@
 
   function Game({
     gameConnection,
-    loading
+    loading,
+    isSpectator
   }) {
-    console.log('555gameConnection', gameConnection);
     const G = gameConnection?.state?.G;
     return G ? /*#__PURE__*/React__default["default"].createElement(GameProvider, {
       gameConnection: gameConnection,
-      isSpectator: true
+      isSpectator: isSpectator
     }, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "game"
     }, /*#__PURE__*/React__default["default"].createElement(AbstractChoices, null), /*#__PURE__*/React__default["default"].createElement("div", {

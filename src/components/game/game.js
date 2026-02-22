@@ -4,15 +4,14 @@ import AbstractChoices from '../abstract-choices/abstract-choices.js'
 import GameStatus from '../game-status/game-status.js'
 import { GameProvider } from "../../contexts/game-context.js";
 
-export default function Game ({ gameConnection, loading }) {
-  console.log('555gameConnection', gameConnection)
+export default function Game ({ gameConnection, loading, isSpectator }) {
   const G = gameConnection?.state?.G
 
   return G
     ? (
       <GameProvider
         gameConnection={gameConnection}
-        isSpectator
+        isSpectator={isSpectator}
       >
         <div className="game">
           <AbstractChoices />
