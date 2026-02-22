@@ -203,7 +203,7 @@
     loading,
     isSpectator
   }) {
-    const G = gameConnection?.state?.G;
+    const G = gameConnection?.getState?.().state.G;
     return G ? /*#__PURE__*/React__default["default"].createElement(GameProvider, {
       gameConnection: gameConnection,
       isSpectator: isSpectator

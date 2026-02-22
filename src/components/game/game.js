@@ -5,7 +5,7 @@ import GameStatus from '../game-status/game-status.js'
 import { GameProvider } from "../../contexts/game-context.js";
 
 export default function Game ({ gameConnection, loading, isSpectator }) {
-  const G = gameConnection?.state?.G
+  const G = gameConnection?.getState?.().state.G
 
   return G
     ? (
