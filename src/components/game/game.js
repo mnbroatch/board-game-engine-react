@@ -6,7 +6,7 @@ import { GameProvider } from "../../contexts/game-context.js";
 
 export default function Game ({ gameConnection, loading }) {
   console.log('555gameConnection', gameConnection)
-  const G = gameConnection?.state
+  const G = gameConnection?.state?.G
 
   return G
     ? (
