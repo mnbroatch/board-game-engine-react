@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.BoardGameEngineReact = {}, global.React));
-})(this, (function (exports, React) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('board-game-engine')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', 'board-game-engine'], factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.BoardGameEngineReact = {}, global.React, global.boardGameEngine));
+})(this, (function (exports, React, boardGameEngine) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -242,7 +242,55 @@
     }))) : loading;
   }
 
+  const useGameserverConnection = ({
+    server,
+    gameId,
+    gameRules,
+    gameName,
+    boardgameIOGame,
+    boardgamePlayerID,
+    clientToken,
+    numPlayers,
+    debug,
+    singlePlayer = false,
+    enabled = true
+  }) => {
+    const [_, forceUpdate] = React.useReducer(x => x + 1, 0);
+    const [connection, setConnection] = React.useState(null);
+    React.useEffect(() => {
+      if (!gameRules && !boardgameIOGame || !singlePlayer && (!gameId || !clientToken || !enabled || !server)) return;
+      const options = {
+        server,
+        numPlayers,
+        onClientUpdate: () => {
+          forceUpdate();
+        },
+        debug,
+        gameId,
+        gameRules,
+        boardgameIOGame,
+        gameName,
+        boardgamePlayerID,
+        clientToken,
+        singlePlayer
+      };
+      const newConnection = new boardGameEngine.Client(options);
+      newConnection.connect();
+      setConnection(newConnection);
+      return () => {
+        connection?.client?.stop();
+        setConnection(null);
+      };
+    }, [gameId, boardgamePlayerID, clientToken, gameRules, boardgameIOGame, enabled]);
+    if (connection) {
+      return Object.assign(connection, connection?.getState?.());
+    } else {
+      return {};
+    }
+  };
+
   exports.Game = Game;
+  exports.useGameserverConnection = useGameserverConnection;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
