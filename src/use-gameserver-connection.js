@@ -1,8 +1,6 @@
 import { useEffect, useReducer, useState } from 'react'
-import a from 'board-game-engine'
-console.log('a', a)
-console.log('a.Client', a.Client)
-const Client = a.Client
+import * as BoardGameEngine from 'board-game-engine'
+const Client = BoardGameEngine.Client
 
 
 export const useGameserverConnection = ({
