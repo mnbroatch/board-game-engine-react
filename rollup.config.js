@@ -9,9 +9,8 @@ const config = [
     input: 'src/index.js',
     external: ['react'],
     output: {
-      format: 'umd',
+      format: 'esm',
       file: 'dist/board-game-engine-react.js',
-      name: 'BoardGameEngineReact'
     },
     plugins: [
       resolve(),
@@ -24,15 +23,15 @@ const config = [
     input: 'src/index.js',
     external: ['react'],
     output: {
-      format: 'umd',
+      format: 'esm',
       file: 'dist/board-game-engine-react.min.js',
-      name: 'BoardGameEngineReact'
     },
     plugins: [
       resolve(),
       commonjs({ include: /node_modules/ }),
       babel(),
       scss({ outputStyle: 'compressed' }),
+
       terser()
 
     ]
