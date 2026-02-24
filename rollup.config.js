@@ -1,7 +1,8 @@
 import babel from '@rollup/plugin-babel'
 import { terser } from 'rollup-plugin-terser'
 import scss from 'rollup-plugin-scss'
-import resolve from 'rollup-plugin-node-resolve'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 
 const config = [
   {
@@ -13,10 +14,9 @@ const config = [
       name: 'BoardGameEngineReact'
     },
     plugins: [
-      resolve({
-      }),
-      babel({
-      }),
+      resolve(),
+      commonjs({ include: /node_modules/ }),
+      babel(),
       scss()
     ]
   },
@@ -29,12 +29,12 @@ const config = [
       name: 'BoardGameEngineReact'
     },
     plugins: [
-      resolve({
-      }),
-      babel({
-      }),
+      resolve(),
+      commonjs({ include: /node_modules/ }),
+      babel(),
       scss({ outputStyle: 'compressed' }),
       terser()
+
     ]
   }
 ]

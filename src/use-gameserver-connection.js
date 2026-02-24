@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react'
 import * as BoardGameEngine from 'board-game-engine'
+console.log('BoardGameEngine', BoardGameEngine)
 const Client = BoardGameEngine.Client
 
 
