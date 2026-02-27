@@ -1,49 +1,47 @@
 import React from 'react'
-import BoardGameEngineReact from '../src/index'
+import { Game, useGameserverConnection } from '../src/index'
+import ticTacToe from './tic-tac-toe.json'
 import { ErrorBoundary } from 'react-error-boundary'
 import './styles.css'
 
-const dialogue = `
-title: Start
----
-Red: Hello.
-Blue: Hi!
-Red: I'm here.
-Blue: I'm here too!
-===
-`
-
 export default {
-  title: 'BoardGameEngineReact',
-  component: BoardGameEngineReact,
+  title: 'Game',
+  component: Game,
   className: 'board-game-engine-react',
   args: {
-    dialogue,
+    gameRules: JSON.stringify(ticTacToe, null, 2),
+    numPlayers: 2,
   },
   argTypes: {
-    dialogue: {
+    gameRules: {
       control: 'text'
+    },
+    numPlayers: {
+      control: 'number'
     }
   }
 }
 
-const Template = (props) => {
+const Template = ({ gameRules, numPlayers }) => {
+  const gameConnection = useGameserverConnection({
+    gameRules,
+    singlePlayer: true,
+    numPlayers,
+  })
+
   return (
     <div className="story">
       <ErrorBoundary
-        resetKeys={[props.dialogue]}
+        resetKeys={[gameRules, numPlayers]}
         fallbackRender={({ error }) => {
           return (
             <div>
-              Invalid Dialogue: {error.message}
+              Invalid Game Rules {error}
             </div>
           )
         }}
       >
-        <BoardGameEngineReact
-          {...props}
-          onDialogueEnd={() => { alert('onDialogueEnd called') }}
-        />
+        <Game gameConnection={gameConnection} />
       </ErrorBoundary>
     </div>
   )
