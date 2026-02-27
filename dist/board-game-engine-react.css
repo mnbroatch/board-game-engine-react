@@ -114,6 +114,7 @@ html, body, #storybook-root, .story {
   max-width: 420px !important; }
 
 .game-status {
+  text-align: center;
   position: absolute;
   top: 50%;
   left: 0;
