@@ -36,8 +36,7 @@ html, body, #storybook-root, .story {
   color: black; }
 
 .shared-board, .personal-board {
-  padding: 1em 0;
-  border-bottom: 1px solid white; }
+  padding: 1em 0; }
 
 .grid {
   border: 1px solid black;

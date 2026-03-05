@@ -1,24 +1,5 @@
 import React, { useEffect, useContext, createContext, useReducer, useState } from 'react';
 
-function _mergeNamespaces(n, m) {
-	m.forEach(function (e) {
-		e && typeof e !== 'string' && !Array.isArray(e) && Object.keys(e).forEach(function (k) {
-			if (k !== 'default' && !(k in n)) {
-				var d = Object.getOwnPropertyDescriptor(e, k);
-				Object.defineProperty(n, k, d.get ? d : {
-					enumerable: true,
-					get: function () { return e[k]; }
-				});
-			}
-		});
-	});
-	return Object.freeze(n);
-}
-
-function getDefaultExportFromCjs (x) {
-	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
-}
-
 function _defineProperty(e, r, t) {
   return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
     value: t,
@@ -83,9 +64,9 @@ function _toPropertyKey(t) {
   return "symbol" == typeof i ? i : i + "";
 }
 
-var boardGameEngine$2 = {exports: {}};
+var boardGameEngine$1 = {exports: {}};
 
-const _excluded=["redact"],_excluded2=["credentials"],_excluded3=["credentials"],_excluded4=["deltalog"],_excluded5=["fn","arg"],_excluded6=["transients"],_excluded7=["playerID"],_excluded8=["master"],_excluded9=["socket","socketOpts","server"],_excluded0=["state"];var boardGameEngine$1=boardGameEngine$2.exports;var hasRequiredBoardGameEngine;function requireBoardGameEngine(){if(hasRequiredBoardGameEngine)return boardGameEngine$2.exports;hasRequiredBoardGameEngine=1;(function(module,exports){(function webpackUniversalModuleDefinition(root,factory){module.exports=factory();})(boardGameEngine$1,()=>{return/******/(()=>{// webpackBootstrap
+const _excluded=["redact"],_excluded2=["credentials"],_excluded3=["credentials"],_excluded4=["deltalog"],_excluded5=["fn","arg"],_excluded6=["transients"],_excluded7=["playerID"],_excluded8=["master"],_excluded9=["socket","socketOpts","server"],_excluded0=["state"];var boardGameEngine=boardGameEngine$1.exports;var hasRequiredBoardGameEngine;function requireBoardGameEngine(){if(hasRequiredBoardGameEngine)return boardGameEngine$1.exports;hasRequiredBoardGameEngine=1;(function(module,exports){(function webpackUniversalModuleDefinition(root,factory){module.exports=factory();})(boardGameEngine,()=>{return/******/(()=>{// webpackBootstrap
 /******/var __webpack_modules__={/***/4039(__unused_webpack_module,exports,__webpack_require__){Object.defineProperty(exports,"__esModule",{value:true});var turnOrder=__webpack_require__(9014);__webpack_require__(5878);__webpack_require__(1946);__webpack_require__(9001);/*
 		 * Copyright 2018 The boardgame.io Authors
 		 *
@@ -5566,15 +5547,9 @@ var index={Parser:Parser,Expression:Expression};/* harmony default export */cons
 /******/return module.exports;/******/}/******//************************************************************************//******//* webpack/runtime/define property getters *//******/(()=>{/******/// define getter functions for harmony exports
 /******/__webpack_require__.d=(exports,definition)=>{/******/for(var key in definition){/******/if(__webpack_require__.o(definition,key)&&!__webpack_require__.o(exports,key)){/******/Object.defineProperty(exports,key,{enumerable:true,get:definition[key]});/******/}/******/}/******/};/******/})();/******//******//* webpack/runtime/global *//******/(()=>{/******/__webpack_require__.g=function(){/******/if(typeof globalThis==='object')return globalThis;/******/try{/******/return this||new Function('return this')();/******/}catch(e){/******/if(typeof window==='object')return window;/******/}/******/}();/******/})();/******//******//* webpack/runtime/hasOwnProperty shorthand *//******/(()=>{/******/__webpack_require__.o=(obj,prop)=>Object.prototype.hasOwnProperty.call(obj,prop);/******/})();/******//******//* webpack/runtime/make namespace object *//******/(()=>{/******/// define __esModule on exports
 /******/__webpack_require__.r=exports=>{/******/if(typeof Symbol!=='undefined'&&Symbol.toStringTag){/******/Object.defineProperty(exports,Symbol.toStringTag,{value:'Module'});/******/}/******/Object.defineProperty(exports,'__esModule',{value:true});/******/};/******/})();/******//******//* webpack/runtime/node module decorator *//******/(()=>{/******/__webpack_require__.nmd=module=>{/******/module.paths=[];/******/if(!module.children)module.children=[];/******/return module;/******/};/******/})();/******//************************************************************************/var __webpack_exports__={};// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
-(()=>{var exports=__webpack_exports__;Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"Client",{enumerable:true,get:function(){return _client.Client;}});Object.defineProperty(exports,"gameFactory",{enumerable:true,get:function(){return _gameFactory.default;}});var _client=__webpack_require__(4245);var _gameFactory=_interopRequireDefault(__webpack_require__(4913));function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e};}})();/******/return __webpack_exports__;/******/})();});})(boardGameEngine$2,boardGameEngine$2.exports);return boardGameEngine$2.exports;}
+(()=>{var exports=__webpack_exports__;Object.defineProperty(exports,"__esModule",{value:true});Object.defineProperty(exports,"Client",{enumerable:true,get:function(){return _client.Client;}});Object.defineProperty(exports,"gameFactory",{enumerable:true,get:function(){return _gameFactory.default;}});var _client=__webpack_require__(4245);var _gameFactory=_interopRequireDefault(__webpack_require__(4913));function _interopRequireDefault(e){return e&&e.__esModule?e:{default:e};}})();/******/return __webpack_exports__;/******/})();});})(boardGameEngine$1,boardGameEngine$1.exports);return boardGameEngine$1.exports;}
 
 var boardGameEngineExports = requireBoardGameEngine();
-var boardGameEngine = /*@__PURE__*/getDefaultExportFromCjs(boardGameEngineExports);
-
-var BoardGameEngine = /*#__PURE__*/_mergeNamespaces({
-	__proto__: null,
-	'default': boardGameEngine
-}, [boardGameEngineExports]);
 
 const GameContext = /*#__PURE__*/createContext({
   clickTarget: () => {}
@@ -5810,7 +5785,6 @@ function Game({
   }))) : loading;
 }
 
-console.log('BoardGameEngine', BoardGameEngine);
 const Client$1 = boardGameEngineExports.Client;
 const useGameserverConnection = ({
   server,
