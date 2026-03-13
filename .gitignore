@@ -3,3 +3,8 @@ node_modules
 notes.txt
 
 *storybook.log
+
+.nyc_output
+coverage
+playwright-report
+test-results

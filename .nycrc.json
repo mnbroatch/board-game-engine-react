@@ -1,0 +1,8 @@
+{
+  "temp-dir": ".nyc_output",
+  "report-dir": "coverage",
+  "include": ["src/**/*.js"],
+  "exclude": ["**/*.spec.js", "**/node_modules/**", "e2e/**", "test-app/**"],
+  "instrument": false,
+  "sourceMap": false
+}

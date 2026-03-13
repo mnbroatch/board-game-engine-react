@@ -3,12 +3,19 @@ import { useGame } from "../../contexts/game-context.js";
 import Grid from '../board/grid.js'
 import Space from "../space/space.js";
 
+function sameEntity (a, b) {
+  const idA = a.entityId ?? a.attributes?.entityId
+  const idB = b.entityId ?? b.attributes?.entityId
+  return idA != null && idB != null && idA === idB
+}
+
 export default function Entity ({ entity }) {
   const { clickTarget, allClickable } = useGame()
-  const isClickable = allClickable.has(entity)
+  const isClickable = [...allClickable].some(c => sameEntity(c, entity))
   const attributes = entity.attributes
+  const entityType = attributes.entityType ?? attributes.type
 
-  switch (attributes.type) {
+  switch (entityType) {
     case 'Grid':
       return <Grid grid={entity} isClickable={isClickable} />
     case 'Space':
@@ -24,7 +31,7 @@ export default function Entity ({ entity }) {
         className={[
           'entity',
           attributes.player && `player-${attributes.player}`,
-          allClickable.has(entity) && 'entity--clickable',
+          isClickable && 'entity--clickable',
         ].filter(Boolean).join(' ')}
       >
         {entity.rule.displayProperties?.map((property, i) => (
