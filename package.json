@@ -1,6 +1,6 @@
 {
   "name": "board-game-engine-react",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "React library for using board-game-engine",
   "main": "dist/board-game-engine-react.js",
   "scripts": {
@@ -79,7 +79,7 @@
     "storybook": "^8.4.6"
   },
   "dependencies": {
-    "board-game-engine": "^0.0.8",
+    "board-game-engine": "^0.0.9",
     "react": "^18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-transition-group": "^4.4.5"
