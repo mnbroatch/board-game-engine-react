@@ -25,7 +25,7 @@ export default function Space ({ space }) {
   const { clickTarget, allClickable, currentMoveTargets } = useGame()
   const { entities, entityId } = space.attributes
 
-  const clickable = [...allClickable].map(e => e.entityId).includes(entityId)
+  const clickable = allClickable.has(space)
   const targeted = currentMoveTargets?.map(e => e.entityId).includes(entityId)
 
   return (
