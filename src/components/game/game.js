@@ -5,8 +5,6 @@ import GameStatus from '../game-status/game-status.js'
 import { GameProvider } from "../../contexts/game-context.js";
 
 export default function Game ({ gameConnection, loading, isSpectator }) {
-  // Use .state from the same snapshot as gameConnection.allClickable (from use-gameserver-connection merge).
-  // Avoid gameConnection.getState() here so we don't mix refs from a second getState() call.
   const G = gameConnection?.state?.G
 
   return G

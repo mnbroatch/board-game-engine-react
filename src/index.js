@@ -1,4 +1,4 @@
-import './styles.scss'
+import './styles.css'
 import * as BoardGameEngine from 'board-game-engine'
 
 export { default as Game } from './components/game/game.js'

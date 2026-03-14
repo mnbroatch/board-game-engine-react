@@ -4,7 +4,7 @@
   --lipstick-red: #EC0B43;
 }
 
-html, body, #storybook-root, .story, {
+html, body, #storybook-root, .story {
   height: 100%;
 }
 
@@ -173,4 +173,3 @@ html, body, #storybook-root, .story, {
   position: relative;
   top: 70px !important;
 }
-
