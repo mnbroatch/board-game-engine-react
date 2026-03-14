@@ -1,16 +1,16 @@
 {
   "name": "board-game-engine-react",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "description": "React library for using board-game-engine",
-  "main": "dist/board-game-engine-react.cjs",
-  "module": "dist/board-game-engine-react.mjs",
-  "style": "dist/board-game-engine-react.css",
+  "main": "./dist/board-game-engine-react.cjs",
+  "module": "./dist/board-game-engine-react.mjs",
+  "style": "./dist/board-game-engine-react.css",
   "exports": {
     ".": {
-      "import": "dist/board-game-engine-react.mjs",
-      "require": "dist/board-game-engine-react.cjs"
+      "import": "./dist/board-game-engine-react.mjs",
+      "require": "./dist/board-game-engine-react.cjs"
     },
-    "./dist/board-game-engine-react.css": "dist/board-game-engine-react.css"
+    "./dist/board-game-engine-react.css": "./dist/board-game-engine-react.css"
   },
   "scripts": {
     "start": "storybook dev p 6006",
