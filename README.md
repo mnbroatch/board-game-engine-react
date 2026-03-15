@@ -18,7 +18,7 @@ npm install board-game-engine-react react
 
 ### `Game`
 
-Root UI component. Renders the current game state (shared board, personal boards, abstract choices, status). Wrap with a provider that supplies `gameConnection`.
+Root UI component. Renders the current game state (shared board, personal boards, abstract choices, status). Pass a `gameConnection` object from `useGameserverConnection`.
 
 ```jsx
 import { Game, useGameserverConnection } from 'board-game-engine-react'
@@ -26,10 +26,11 @@ import { Game, useGameserverConnection } from 'board-game-engine-react'
 function App() {
   const gameConnection = useGameserverConnection({
     server: 'https://your-server.com',
-    gameId: 'room-1',
+    matchID: 'room-1',
     gameRules: myGameRules,
-    clientToken: '…',
-    // …other options
+    credentials: '…',
+    playerID: '0',
+    numPlayers: 2,
   })
 
   return (
@@ -42,31 +43,40 @@ function App() {
 }
 ```
 
+Single-player (no server): omit `server`, `matchID`, and `credentials` and pass `gameRules` and `numPlayers`:
+
+```jsx
+const gameConnection = useGameserverConnection({
+  gameRules: myGameRules,
+  numPlayers: 2,
+})
+```
+
 | Prop              | Type    | Description |
 |-------------------|---------|-------------|
 | `gameConnection`  | object  | Connection/state object (e.g. from `useGameserverConnection`). |
-| `loading`        | node   | Rendered while there is no game state (e.g. connecting). |
-| `isSpectator`    | boolean | If true, disables making moves. |
+| `loading`         | node    | Rendered while there is no game state (e.g. connecting). |
+| `isSpectator`     | boolean | If true, disables making moves. |
 
 ---
 
 ### `useGameserverConnection(options)`
 
-Hook that creates and maintains a connection to a game server. Returns an object that includes connection state and methods; pass this object as `gameConnection` to `<Game />`.
+Hook that creates and maintains a connection to a game server (or a local game when no server is configured). Returns an object that includes connection state and methods; pass this object as `gameConnection` to `<Game />`.
 
-| Option              | Type    | Description |
-|---------------------|---------|-------------|
-| `server`            | string  | Game server URL (required unless `singlePlayer`). |
-| `gameId`            | string  | Room/game id (required unless `singlePlayer`). |
-| `clientToken`       | string  | Auth token for the client (required unless `singlePlayer`). |
-| `gameRules`         | object  | Game definition from board-game-engine (for server-driven games). |
-| `boardgameIOGame`   | object  | boardgame.io game config (alternative to `gameRules`). |
-| `gameName`          | string  | Game name sent to server. |
-| `boardgamePlayerID` | string  | Player id (e.g. `'0'`, `'1'`). |
-| `numPlayers`        | number  | Number of players. |
-| `debug`             | boolean | Enable debug logging. |
-| `singlePlayer`      | boolean | If true, run locally without a server (default: `false`). |
-| `enabled`           | boolean | If false, skip connecting (default: `true`). |
+| Option            | Type    | Description |
+|-------------------|---------|-------------|
+| `server`          | string  | Game server URL (required for multiplayer). |
+| `matchID`         | string  | Room/match id (required for multiplayer). |
+| `credentials`     | string  | Auth credentials for the client (required for multiplayer). |
+| `gameRules`       | object  | Game definition from board-game-engine. |
+| `boardgameIOGame` | object  | boardgame.io game config (alternative to `gameRules`). |
+| `gameName`        | string  | Game name sent to server. |
+| `playerID`        | string  | Player id (e.g. `'0'`, `'1'`). |
+| `numPlayers`      | number  | Number of players. |
+| `multiplayer`     | boolean | Use server multiplayer; omit or false for local/single-player. |
+| `debug`           | boolean | Enable debug logging. |
+| `enabled`         | boolean | If false, skip connecting (default: `true`). |
 
 ---
 

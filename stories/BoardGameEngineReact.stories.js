@@ -11,40 +11,62 @@ export default {
   args: {
     gameRules: JSON.stringify(ticTacToe, null, 2),
     numPlayers: 2,
+    isSpectator: false,
   },
   argTypes: {
-    gameRules: {
-      control: 'text'
-    },
-    numPlayers: {
-      control: 'number'
-    }
+    gameRules: { control: 'text' },
+    numPlayers: { control: 'number' },
+    isSpectator: { control: 'boolean' },
+  },
+}
+
+const parseGameRules = (gameRules, fallback) => {
+  if (typeof gameRules !== 'string') return gameRules
+  try {
+    return JSON.parse(gameRules || '{}')
+  } catch {
+    return fallback
   }
 }
 
-const Template = ({ gameRules, numPlayers }) => {
+const fallbackRender = ({ error }) => <div>Invalid Game Rules {error}</div>
+
+const Template = ({ gameRules, numPlayers, loading, isSpectator }) => {
+  const rules = parseGameRules(gameRules, ticTacToe)
   const gameConnection = useGameserverConnection({
-    gameRules,
-    singlePlayer: true,
+    gameRules: rules,
     numPlayers,
   })
 
   return (
     <div className="story">
-      <ErrorBoundary
-        resetKeys={[gameRules, numPlayers]}
-        fallbackRender={({ error }) => {
-          return (
-            <div>
-              Invalid Game Rules {error}
-            </div>
-          )
-        }}
-      >
-        <Game gameConnection={gameConnection} />
+      <ErrorBoundary resetKeys={[gameRules, numPlayers]} fallbackRender={fallbackRender}>
+        <Game
+          gameConnection={gameConnection}
+          loading={loading}
+          isSpectator={isSpectator}
+        />
       </ErrorBoundary>
     </div>
   )
 }
 
 export const Basic = Template.bind({})
+
+export const WithLoading = (args) => (
+  <Template
+    {...args}
+    loading={<div className="story-loading">Loading game…</div>}
+  />
+)
+WithLoading.args = {
+  gameRules: JSON.stringify(ticTacToe, null, 2),
+  numPlayers: 2,
+}
+
+export const Spectator = Template.bind({})
+Spectator.args = {
+  gameRules: JSON.stringify(ticTacToe, null, 2),
+  numPlayers: 2,
+  isSpectator: true,
+}
