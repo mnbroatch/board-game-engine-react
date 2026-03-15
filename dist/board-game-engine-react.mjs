@@ -1,5 +1,5 @@
 // src/index.js
-import * as BoardGameEngine2 from "board-game-engine";
+import { Client as Client2, gameFactory } from "board-game-engine";
 
 // src/components/game/game.js
 import React7 from "react";
@@ -30,7 +30,7 @@ function GameProvider({ gameConnection, children, isSpectator }) {
       gameConnection.undoStep();
     },
     allClickable: gameConnection.optimisticWinner || isSpectator ? /* @__PURE__ */ new Set() : gameConnection.allClickable,
-    currentMoveTargets: gameConnection.optimisticWinner || isSpectator ? [] : gameConnection.moveBuilder?.targets ?? []
+    currentMoveTargets: gameConnection.optimisticWinner || isSpectator ? [] : gameConnection.moveBuilder.targets
   }, children });
 }
 var useGame = () => useContext(GameContext);
@@ -266,8 +266,7 @@ function Game({ gameConnection, loading, isSpectator }) {
 
 // src/use-gameserver-connection.js
 import { useEffect as useEffect2, useReducer, useState } from "react";
-import * as BoardGameEngine from "board-game-engine";
-var Client2 = BoardGameEngine.Client;
+import { Client } from "board-game-engine";
 var useGameserverConnection = ({
   server,
   multiplayer,
@@ -294,15 +293,15 @@ var useGameserverConnection = ({
         forceUpdate();
       },
       debug,
-      matchId: matchID,
-      gameRules: typeof gameRules === "string" ? gameRules : gameRules != null ? JSON.stringify(gameRules) : void 0,
+      matchID,
+      gameRules,
       boardgameIOGame,
       gameName,
       playerID,
       credentials,
       multiplayer
     };
-    const newConnection = new Client2(options);
+    const newConnection = new Client(options);
     newConnection.connect();
     setConnection(newConnection);
     return () => {
@@ -328,11 +327,9 @@ var useGameserverConnection = ({
     return {};
   }
 };
-
-// src/index.js
-var Client4 = BoardGameEngine2.Client;
 export {
-  Client4 as Client,
+  Client2 as Client,
   Game,
+  gameFactory,
   useGameserverConnection
 };

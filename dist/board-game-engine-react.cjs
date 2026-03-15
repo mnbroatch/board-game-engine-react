@@ -29,12 +29,13 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.js
 var index_exports = {};
 __export(index_exports, {
-  Client: () => Client4,
+  Client: () => import_board_game_engine2.Client,
   Game: () => Game,
+  gameFactory: () => import_board_game_engine2.gameFactory,
   useGameserverConnection: () => useGameserverConnection
 });
 module.exports = __toCommonJS(index_exports);
-var BoardGameEngine2 = __toESM(require("board-game-engine"));
+var import_board_game_engine2 = require("board-game-engine");
 
 // src/components/game/game.js
 var import_react7 = __toESM(require("react"));
@@ -65,7 +66,7 @@ function GameProvider({ gameConnection, children, isSpectator }) {
       gameConnection.undoStep();
     },
     allClickable: gameConnection.optimisticWinner || isSpectator ? /* @__PURE__ */ new Set() : gameConnection.allClickable,
-    currentMoveTargets: gameConnection.optimisticWinner || isSpectator ? [] : gameConnection.moveBuilder?.targets ?? []
+    currentMoveTargets: gameConnection.optimisticWinner || isSpectator ? [] : gameConnection.moveBuilder.targets
   }, children });
 }
 var useGame = () => (0, import_react.useContext)(GameContext);
@@ -301,8 +302,7 @@ function Game({ gameConnection, loading, isSpectator }) {
 
 // src/use-gameserver-connection.js
 var import_react8 = require("react");
-var BoardGameEngine = __toESM(require("board-game-engine"));
-var Client2 = BoardGameEngine.Client;
+var import_board_game_engine = require("board-game-engine");
 var useGameserverConnection = ({
   server,
   multiplayer,
@@ -329,15 +329,15 @@ var useGameserverConnection = ({
         forceUpdate();
       },
       debug,
-      matchId: matchID,
-      gameRules: typeof gameRules === "string" ? gameRules : gameRules != null ? JSON.stringify(gameRules) : void 0,
+      matchID,
+      gameRules,
       boardgameIOGame,
       gameName,
       playerID,
       credentials,
       multiplayer
     };
-    const newConnection = new Client2(options);
+    const newConnection = new import_board_game_engine.Client(options);
     newConnection.connect();
     setConnection(newConnection);
     return () => {
@@ -363,6 +363,3 @@ var useGameserverConnection = ({
     return {};
   }
 };
-
-// src/index.js
-var Client4 = BoardGameEngine2.Client;
