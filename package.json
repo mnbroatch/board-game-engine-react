@@ -94,7 +94,7 @@
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "board-game-engine": "^0.0.11",
+    "board-game-engine": "^1.0.3",
     "react": "^18.2.0",
     "react-error-boundary": "^3.1.4",
     "react-transition-group": "^4.4.5"

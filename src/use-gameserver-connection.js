@@ -5,22 +5,27 @@ const Client = BoardGameEngine.Client
 
 export const useGameserverConnection = ({
   server,
-  gameId,
+  multiplayer,
+  matchID,
   gameRules,
   gameName,
   boardgameIOGame,
-  boardgamePlayerID,
-  clientToken,
+  playerID,
+  credentials,
   numPlayers,
   debug,
-  singlePlayer = false,
   enabled = true,
 }) => {
   const [_, forceUpdate] = useReducer(x => x + 1, 0)
   const [connection, setConnection] = useState(null)
 
   useEffect(() => {
-    if (!gameRules && !boardgameIOGame || !singlePlayer && (!gameId || !clientToken || !enabled || !server)) return
+    if (
+      !gameRules && !boardgameIOGame
+        || credentials && !(matchID && enabled && server)
+    ) {
+      return
+    }
 
     const options = {
       server,
@@ -29,13 +34,13 @@ export const useGameserverConnection = ({
         forceUpdate()
       },
       debug,
-      gameId,
+      matchID,
       gameRules,
       boardgameIOGame,
       gameName,
-      boardgamePlayerID,
-      clientToken,
-      singlePlayer,
+      playerID,
+      credentials,
+      multiplayer
     }
 
     const newConnection = new Client(options)
@@ -48,7 +53,16 @@ export const useGameserverConnection = ({
       connection?.client?.stop()
       setConnection(null)
     }
-  }, [gameId, boardgamePlayerID, clientToken, gameRules, boardgameIOGame, enabled])
+  }, [
+      matchID,
+      server,
+      playerID,
+      credentials,
+      gameRules,
+      boardgameIOGame,
+      enabled,
+      multiplayer,
+    ])
 
   if (connection) {
     return Object.assign(

@@ -65,7 +65,7 @@ function GameProvider({ gameConnection, children, isSpectator }) {
       gameConnection.undoStep();
     },
     allClickable: gameConnection.optimisticWinner || isSpectator ? /* @__PURE__ */ new Set() : gameConnection.allClickable,
-    currentMoveTargets: gameConnection.optimisticWinner || isSpectator ? [] : gameConnection.moveBuilder.targets
+    currentMoveTargets: gameConnection.optimisticWinner || isSpectator ? [] : gameConnection.moveBuilder?.targets ?? []
   }, children });
 }
 var useGame = () => (0, import_react.useContext)(GameContext);
@@ -305,21 +305,23 @@ var BoardGameEngine = __toESM(require("board-game-engine"));
 var Client2 = BoardGameEngine.Client;
 var useGameserverConnection = ({
   server,
-  gameId,
+  multiplayer,
+  matchID,
   gameRules,
   gameName,
   boardgameIOGame,
-  boardgamePlayerID,
-  clientToken,
+  playerID,
+  credentials,
   numPlayers,
   debug,
-  singlePlayer = false,
   enabled = true
 }) => {
   const [_, forceUpdate] = (0, import_react8.useReducer)((x) => x + 1, 0);
   const [connection, setConnection] = (0, import_react8.useState)(null);
   (0, import_react8.useEffect)(() => {
-    if (!gameRules && !boardgameIOGame || !singlePlayer && (!gameId || !clientToken || !enabled || !server)) return;
+    if (!gameRules && !boardgameIOGame || credentials && !(matchID && enabled && server)) {
+      return;
+    }
     const options = {
       server,
       numPlayers,
@@ -327,13 +329,13 @@ var useGameserverConnection = ({
         forceUpdate();
       },
       debug,
-      gameId,
-      gameRules,
+      matchId: matchID,
+      gameRules: typeof gameRules === "string" ? gameRules : gameRules != null ? JSON.stringify(gameRules) : void 0,
       boardgameIOGame,
       gameName,
-      boardgamePlayerID,
-      clientToken,
-      singlePlayer
+      playerID,
+      credentials,
+      multiplayer
     };
     const newConnection = new Client2(options);
     newConnection.connect();
@@ -342,7 +344,16 @@ var useGameserverConnection = ({
       connection?.client?.stop();
       setConnection(null);
     };
-  }, [gameId, boardgamePlayerID, clientToken, gameRules, boardgameIOGame, enabled]);
+  }, [
+    matchID,
+    server,
+    playerID,
+    credentials,
+    gameRules,
+    boardgameIOGame,
+    enabled,
+    multiplayer
+  ]);
   if (connection) {
     return Object.assign(
       connection,
